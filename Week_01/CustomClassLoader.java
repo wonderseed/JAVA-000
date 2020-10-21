@@ -13,15 +13,11 @@ public class CustomClassLoader extends ClassLoader {
             Method method = Hello.getMethod("hello");
             Object obj = Hello.newInstance();
             method.invoke(obj);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
+        } catch (ClassNotFoundException
+                | NoSuchMethodException
+                | InstantiationException
+                | IllegalAccessException
+                | InvocationTargetException e) {
             e.printStackTrace();
         }
     }
@@ -34,12 +30,12 @@ public class CustomClassLoader extends ClassLoader {
         try {
             new FileInputStream(helloFile).read(bytes);
             for (int i = 0; i < length; i++) {
-                bytes[i] =(byte) (255 - bytes[i]);
+                bytes[i] = (byte) (255 - bytes[i]);
             }
         } catch (IOException e) {
             e.printStackTrace();
             return super.findClass(name);
         }
-        return defineClass(name,bytes,0, bytes.length);
+        return defineClass(name, bytes, 0, bytes.length);
     }
 }
